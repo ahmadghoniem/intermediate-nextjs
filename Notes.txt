@@ -1,0 +1,33 @@
+- difference between RSC vs SSR
+- SSR it only does happens on the initial load of the page so on navigation you lose that feature
+- while RSC whenever you navigate server components are always executed on the server
+
+ > Routing <
+- A file-system based router built on top of Server Components that supports
+-  layouts, nested routing, loading states, error handling, and more.
+
+/*  app
+        (dashboard)
+            page.tsx
+        page.tsx
+home page or root page or index page will resolve it page.tsx in the app directory not that one in the dashboard directory. */
+
+- every page has to have a default export of the component which it's rendering or else it will break
+
+- if we were logging process.argv on the browser and not on the server as RSC does it would have thrown an error as process.argv doesn't exist on the browser
+- SSR (executed on the server then sent to the browser) would break as soon as it's sent out to the browser.
+- routes are case insensitive but it will map to the correct casing after loading for example navigating to /DoCs while it's /docs will route to /docs and show up on the url as  /docs
+- You cannot use different slug names for the same dynamic path /docs/[slug1] can't also have /docs/[slug2] as they are the same dynamic path
+
+ > Catch-all Segments <
+- say you have an online shop they only thing changing is the content in the middle an example would be shop/woman/clothing/pants-n6600
+shop/[...slug] that will match shop/*  but not the root page shop so we either wrap [...slug] with double brackets so it will be [[...slug]]
+so it can include both shop and shop/ and when it returns undefined that would mean we are now browsing the root page
+OR we can create another page in the root so we would have route/[..slug]/page.tsx and route/page.tsx where the latter will have it's own file
+
+> CORS < is a security policy browsers implemented to prevent websites from accessing information from servers that aren't part of the same domain.
+before doing a post or a get request to a server the browser will send an options request to figure out what domains and what methods the server accepts
+and the server replies if the domain that you have initiated the request from isn't supported by the server it will get blocked because of an CORS issue. 
+if a server communicates with another server there shouldn't abe a problem only CORS is available if a browser is trying 
+
+you can't use a server action without it being scoped inside of a 'use server' directive
